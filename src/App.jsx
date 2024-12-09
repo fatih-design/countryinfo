@@ -17,7 +17,7 @@ function App() {
         <h1>Landen overzicht</h1>
             <button onClick = {fetchCountries}>Haal landen op</button>
             <ul>{countries.map((country,index) =>(
-                <li key={index}>{country.name.common}</li>
+                <li key={index}>{country?.name.common || "onbekend"} - {country?.population || "onbekend"} - <img src={country?.flags.png || "onbekend"} alt={`Vlag van ${country.name.common || "onbekend"}`} width = "20" /></li>
                 ))}
             </ul>
 </>
