@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, {useState,useEffect} from 'react';
+import React, {useState} from 'react';
 
 
 function App() {
@@ -21,23 +21,26 @@ function App() {
 
             setCountries(sortedCountries);
 
-            setfilteredCountries(sortedCountries);
+            setFilteredCountries(sortedCountries);
         } catch (error) {
             console.error('Er is iets misgegaan', error);
         }
 
     };
-    useEffect(() => {
-        const filtred = countries.filter((country) =>
+    const handleSearch = () => {
+        const filtered = countries.filter((country) =>
             country.name.toLowerCase().includes(search.toLowerCase())
+        );
+        setFilteredCountries(filtered);
+    };
 
-
-        );setFilteredCountries(filtred);
-    }, [search,countries]);
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {handleSearch()}
+    };
     return (
         <><h2>Zoeken</h2>
-            <input type="text" onChange={(e) => setSearch(e.target.value)} value={search}/>
-
+            <input type="text" onChange={(e) => setSearch(e.target.value)} value={search} onKeyPress={handleKeyPress}/>
+            <button onClick={handleSearch}>Zoek</button>
             <ul>
                 {filteredCountries.map((country, index) => (
                     <li key={index}>
